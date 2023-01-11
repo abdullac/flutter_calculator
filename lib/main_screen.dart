@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/buttons_area.dart';
 import 'package:flutter_calculator/desplay_area.dart';
 
 class MainScreen extends StatefulWidget {
