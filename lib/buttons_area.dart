@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/values/values.dart';
 
 class ButtonsArea extends StatefulWidget{
   
@@ -13,6 +14,15 @@ class ButtonsAreaState extends State<ButtonsArea> {
   
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
+    return Container(
+      decoration: BoxDecoration(color: Colors.blue[100]),
+      height: (desplayHeight * .8),
+      width: double.infinity,
+      child: Column(
+        children: const [
+          
+        ],
+      ),
+    );
   }
 }

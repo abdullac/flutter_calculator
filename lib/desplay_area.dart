@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/values/values.dart';
 
 class DesplayArea extends StatefulWidget {
   @override
@@ -8,10 +9,9 @@ class DesplayArea extends StatefulWidget {
 class DesplayAreaState extends State<DesplayArea> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(color: Colors.grey[400]),
-      height: height / 5,
+      height: desplayHeight * .2,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -23,7 +23,7 @@ class DesplayAreaState extends State<DesplayArea> {
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: (height / 6)),
+                    fontSize: (desplayHeight *.17)),
               ),
             ),
           ),
