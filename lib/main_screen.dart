@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/desplay_area.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -13,7 +14,12 @@ class MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          
+          child: Column(
+            children: [
+              DesplayArea(),
+              ButtonsArea(),
+            ],
+          ),
         ),
       ),
     );
