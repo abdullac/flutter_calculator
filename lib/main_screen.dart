@@ -11,8 +11,10 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        title: Text('FLUTTER CALCULATOR'),
+      ),
       body: SafeArea(
         child: Container(
           child: Column(
