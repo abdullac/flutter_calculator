@@ -19,13 +19,11 @@ class ButtonsAreaState extends State<ButtonsArea> {
         const FunctionKeysListView(
           subFunctionality: 'functionsKey',
         ),
-        Container(
-          child: Row(
-            children: const [
-              NumberGridView(),
-              OperationKeysListView(),
-            ],
-          ),
+        Row(
+          children: const [
+            NumberGridView(),
+            OperationKeysListView(),
+          ],
         ),
         const FunctionKeysListView(
           subFunctionality: 'additionalsKey',

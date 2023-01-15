@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calculator/functions/get_or_set_value.dart';
 import 'package:flutter_calculator/widgets/button_text.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -24,6 +25,8 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           // button pressed
+          /*String getButtonValue =*/ buttonText(indxx, setFunctionality(), TextValuePorpose.keyPressed);
+
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.grey[800]),

@@ -7,6 +7,8 @@ class DesplayArea extends StatefulWidget {
 }
 
 class DesplayAreaState extends State<DesplayArea> {
+
+  String initValue = "0";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +21,8 @@ class DesplayAreaState extends State<DesplayArea> {
             child: Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                '9',
+                // desplayValue
+                initValue,
                 style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
