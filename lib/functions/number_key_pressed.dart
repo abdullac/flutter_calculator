@@ -5,6 +5,7 @@
 import 'dart:ffi';
 
 import 'package:flutter_calculator/desplay_area.dart';
+import 'package:flutter_calculator/values/values.dart';
 
 List numberKeyCategory = [
   "0",
@@ -33,26 +34,43 @@ numberKeyPressed(getKeyText /*, Functionality functinality*/) {
     print(getKeyText);
   }
   if (otherKeyCategory.contains(getKeyText)) {
-    print(getKeyText);
+    otherKeyPressed(getKeyText);
   }
+  print(desplayValue);
 }
 
-String assignToDesplayValue(getKeyText) {
+String assignToDesplayValue(keyText) {
   String value = "000";
-  int desplayNumber = int.parse(desplayValue);
-  int keyNumber = int.parse(getKeyText);
+  double desplayNumber = double.parse(desplayValue);
+  double keyNumber = double.parse(keyText);
   if (desplayNumber == 0) {
     if (keyNumber == 0) {
       value = "0";
     } else {
-      value = getKeyText;
+      value = keyText;
     }
   } else {
-    value = desplayValue + getKeyText;
+    value = desplayValue + keyText;
   }
   desplayValue = value;
-  print(value);
-  return value;
+  return desplayValue;
 }
 
-
+otherKeyPressed(keyText) {
+  double desplayNumber = double.parse(desplayValue);
+  if (keyText == "C") {
+    desplayValue = "0";
+  } else if (keyText == "<x" && desplayValue.isNotEmpty) {
+    String afterRemove = desplayValue.replaceRange(
+        desplayValue.length - 1, desplayValue.length, "");
+    desplayValue = afterRemove;
+  } else if (keyText == ".") {
+    if (desplayNumber == 0) {
+      desplayValue = "0.0";
+    } else {
+      desplayValue.contains(".")
+          ? desplayValue = desplayValue
+          : desplayValue += ".0";
+    }
+  }
+}
