@@ -13,9 +13,11 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     desplayHeight = MediaQuery.of(context).size.height;
+    desplayWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
         child: Container(
+          color: Colors.black87,
           child: Column(
             children: [
               DesplayArea(),
