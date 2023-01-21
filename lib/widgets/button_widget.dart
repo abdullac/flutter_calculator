@@ -1,52 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calculator/functions/get_or_set_value.dart';
-import 'package:flutter_calculator/widgets/button_text.dart';
+import 'package:flutter_calculator/values/values.dart';
 
-class ButtonWidget extends StatelessWidget {
-  final Functionality buttonFunctinality;
-  final String subFunctionality;
-  final int indxx;
-  final double buttonWidth;
-  final double buttonHeight;
-  const ButtonWidget({
-    super.key,
-    required this.buttonFunctinality,
-    required this.indxx,
-    required this.buttonWidth,
-    required this.buttonHeight,
-    this.subFunctionality = "normal",
-  });
+var buttonStyle = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
+  padding: MaterialStateProperty.all(EdgeInsets.zero),
+  //tapTargetSize: MaterialTapTargetSize.shrinkWrap
+);
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: buttonWidth,
-      height: buttonHeight,
-      child: ElevatedButton(
-        onPressed: () {
-          // button pressed
-          /*String getButtonValue =*/ buttonText(indxx, setFunctionality(), TextValuePorpose.keyPressed);
+var textStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: Colors.white70,
+  fontSize: (desplayHeight * .51) <= (desplayWidth * .75)
+      ? (desplayHeight * .51) / 4.8
+      : (desplayWidth * .75) / 4.8,
+);
 
-        },
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.grey[800]),
-        ),
-        child: ButtonText(
-          indx: indxx,
-          functinality: setFunctionality(),
-        ),
-      ),
-    );
-  }
-
-  Functionality setFunctionality() {
-    if (subFunctionality == "normal") {
-      return buttonFunctinality;
-    } else if (subFunctionality == "functionsKey") {
-      return Functionality.functionKeys;
-    } else if (subFunctionality == "additionalsKey") {
-      return Functionality.additionalKeys;
-    }
-    return Functionality.none;
-  }
+SizedBox sizedBoxMethod(ElevatedButton elevatedButton) {
+  return SizedBox(
+    width: (desplayWidth * .229),
+    height: (desplayHeight * .137),
+    child: elevatedButton,
+  );
 }

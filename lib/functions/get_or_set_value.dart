@@ -1,13 +1,5 @@
-import 'package:flutter_calculator/functions/number_key_pressed.dart';
-import 'package:flutter_calculator/widgets/button_text.dart';
-
-enum TextValuePorpose{
-  keyPressed,
-  keyLabel,
-  none,
-}
-
-TextValuePorpose textValuePorpose =TextValuePorpose.none;
+import 'package:flutter_calculator/functions/key_pressed.dart';
+import 'package:flutter_calculator/values/values.dart';
 
 String buttonText(index, Functionality functinality, textValuePorpose) {
   String textValue = "0";
@@ -84,8 +76,8 @@ String buttonText(index, Functionality functinality, textValuePorpose) {
         break;
     }
   }
-  if(textValuePorpose == TextValuePorpose.keyPressed){
-  numberKeyPressed(textValue/*, functinality*/);
+  if (textValuePorpose == TextValuePorpose.keyPressed) {
+    keyPressed(textValue);
   }
   return textValue;
 }
