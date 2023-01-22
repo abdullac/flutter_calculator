@@ -3,12 +3,22 @@ import 'package:flutter_calculator/functions/key_pressed.dart';
 import 'package:flutter_calculator/values/values.dart';
 
 class DesplayArea extends StatelessWidget {
+  final String dseplayVal;
   const DesplayArea({
-    super.key,
+    super.key, required this.dseplayVal,
   });
+
+// @override
+//   void setState(VoidCallback fn) {
+//     // TODO: implement setState
+//     super.setState(fn);
+//     screenValue;
+//     print("desplay area state");
+//   }
 
   @override
   Widget build(BuildContext context) {
+    print("desplay area");
     return Container(
       decoration: BoxDecoration(color: Colors.grey[400]),
       height: desplayHeight * .2,
@@ -19,7 +29,8 @@ class DesplayArea extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                screenValue,
+                //screenValue,
+                dseplayVal,
                 style: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,

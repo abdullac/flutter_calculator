@@ -25,20 +25,18 @@ class MainScreenState extends State<MainScreen> {
           child: Column(
             children: [
               //DesplayArea
-              DesplayArea(),
-              //ButtonsArea
-              Column(
-                children: [
-                  listViewArea(4, Functionality.functionKeys), // FunctionKeys
-                  Row(children: [
-                    gridViewArea(), // NumberGridView
-                    listViewArea(3,
-                        Functionality.operationsKeys) // OperationKeysListView
-                  ]),
-                  listViewArea(
-                      4, Functionality.additionalKeys), // AdditionalKeys
-                ],
+              DesplayArea(
+                dseplayVal: desplayValue,
               ),
+              //ButtonsArea
+              Column(children: [
+                listViewArea(4, Functionality.functionKeys), // FunctionKeys
+                Row(children: [
+                  gridViewArea(), // NumberGridView
+                  listViewArea(3, Functionality.operationsKeys) // OperationKeys
+                ]),
+                listViewArea(4, Functionality.additionalKeys), // AdditionalKeys
+              ])
             ],
           ),
         ),
