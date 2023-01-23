@@ -1,8 +1,21 @@
 import 'package:flutter_calculator/functions/key_pressed.dart';
 import 'package:flutter_calculator/values/values.dart';
 
-String buttonText(index, Functionality functinality, textValuePorpose) {
-  String textValue = "0";
+String buttonActionOrLabel(
+    index, Functionality functinality, TextValuePorpose textValuePorpose,{String desplayValue="0"}) {
+  String resultValue = desplayValue;
+  if (textValuePorpose == TextValuePorpose.keyLabel) {
+    resultValue = buttonValue(index, functinality);
+  } else if (textValuePorpose == TextValuePorpose.keyAction) {
+    resultValue = keyPressed(buttonValue(index, functinality, ),desplayValue);
+  }else{
+    //
+  }
+  return resultValue;
+}
+
+String buttonValue(index, Functionality functinality) {
+  String textValue = "0.0002";
   if (functinality == Functionality.countNumberKeys) {
     switch (index + 1) {
       case 1:
@@ -76,8 +89,6 @@ String buttonText(index, Functionality functinality, textValuePorpose) {
         break;
     }
   }
-  if (textValuePorpose == TextValuePorpose.keyPressed) {
-    keyPressed(textValue);
-  }
+
   return textValue;
 }

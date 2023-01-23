@@ -10,7 +10,7 @@ enum Functionality {
 }
 
 enum TextValuePorpose {
-  keyPressed,
+  keyAction,
   keyLabel,
   none,
 }

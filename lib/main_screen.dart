@@ -5,15 +5,11 @@ import 'package:flutter_calculator/functions/key_pressed.dart';
 import 'package:flutter_calculator/values/values.dart';
 import 'package:flutter_calculator/widgets/button_widget.dart';
 import 'package:flutter_calculator/widgets/list_and_grid_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainScreen extends StatelessWidget {
+  MainScreen({super.key});
 
-  @override
-  MainScreenState createState() => MainScreenState();
-}
-
-class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     desplayHeight = MediaQuery.of(context).size.height;
@@ -26,8 +22,8 @@ class MainScreenState extends State<MainScreen> {
             children: [
               //DesplayArea
               DesplayArea(
-                dseplayVal: desplayValue,
-              ),
+                  //dseplayVal: desplayValue,
+                  ),
               //ButtonsArea
               Column(children: [
                 listViewArea(4, Functionality.functionKeys), // FunctionKeys
@@ -90,14 +86,21 @@ class MainScreenState extends State<MainScreen> {
   }
 
   SizedBox buttons(int buttonIndex, Functionality functionality) {
+    print("object");
     var elevatedButton = ElevatedButton(
       onPressed: () {
-        stateMethod();
-        buttonText(buttonIndex, functionality, TextValuePorpose.keyPressed);
+        //  set value notifier value
+        String resultValue = buttonActionOrLabel(
+            buttonIndex, functionality, TextValuePorpose.keyAction,
+            desplayValue: desplayValueNotifier.value);
+        print("qqq $resultValue");
+        desplayValueNotifier.value = resultValue;
+        saveData(resultValue);
       },
       style: buttonStyle,
       child: Text(
-        buttonText(buttonIndex, functionality, TextValuePorpose.keyLabel),
+        buttonActionOrLabel(
+            buttonIndex, functionality, TextValuePorpose.keyLabel),
         style: textStyle,
       ),
     );
@@ -105,9 +108,10 @@ class MainScreenState extends State<MainScreen> {
     return sizedBoxMethod(elevatedButton);
   }
 
-  void stateMethod() {
-    return setState(() {
-      screenValue;
-    });
+  Future<void> saveData(resultValue) async {
+    final shredPref = await SharedPreferences.getInstance();
+    await shredPref.setString("saved_value", resultValue);
+    print("saved_value $resultValue");
   }
+
 }

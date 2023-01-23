@@ -1,6 +1,7 @@
-String desplayValue = "0";
+import 'package:flutter/material.dart';
 
-String screenValue = "0";
+
+ValueNotifier<String> desplayValueNotifier = ValueNotifier(/*screenValue*/ "0");
 
 double oldNumber = 0;
 double newNumber = 0;
@@ -9,18 +10,6 @@ bool isOperatorClicked = false;
 bool isResultclicked = false;
 bool isPercentageClicked = false;
 String lastClickedOperator = "nill";
-
-keyPressed(String getKeyText) {
-  if (numberKeyCategory.contains(getKeyText)) {
-    assignToDesplayValue(getKeyText);
-  } else if (operationKeyCategory.contains(getKeyText)) {
-    operationKeyPressed(getKeyText);
-  } else if (otherKeyCategory.contains(getKeyText)) {
-    otherKeyPressed(getKeyText);
-  }
-  print(desplayValue);
-  screenValue = desplayValue;
-}
 
 List numberKeyCategory = [
   "0",
@@ -38,9 +27,23 @@ List numberKeyCategory = [
 List operationKeyCategory = ["+", "-", "x", "/", "%", "="];
 List otherKeyCategory = [".", "C", "<x"];
 
-String assignToDesplayValue(String keyText) {
-  if (isResultclicked == true || isPercentageClicked) {
-    desplayValue = "0";
+String keyPressed(String getKeyText, String desplayValue) {
+  String resultValue = desplayValue;
+  if (numberKeyCategory.contains(getKeyText)) {
+    resultValue = assignToDesplayValue(getKeyText, desplayValue);
+  } else if (operationKeyCategory.contains(getKeyText)) {
+    resultValue = operationKeyPressed(getKeyText, desplayValue);
+  } else if (otherKeyCategory.contains(getKeyText)) {
+    resultValue = otherKeyPressed(getKeyText, desplayValue);
+  }
+  print(resultValue);
+  return resultValue;
+}
+
+String assignToDesplayValue(String keyText, String desplayValue) {
+  String resultValue = desplayValue;
+  if (isResultclicked == true || isPercentageClicked == true) {
+    resultValue = "0";
     oldNumber = 0;
     newNumber = 0;
     lastClickedOperator = "nill";
@@ -49,19 +52,18 @@ String assignToDesplayValue(String keyText) {
   } else {
     //
   }
-  String value = "0";
-  double desplayNumber = double.parse(desplayValue);
+  double desplayNumber = double.parse(resultValue);
   double keyNumber = double.parse(keyText);
-  desplayValue == "0"
-      ? (keyNumber == 0 ? value = "0" : value = keyText)
-      : (desplayValue.length <= 13
-          ? value = desplayValue + keyText
-          : value = "${desplayNumber + 0}");
-  desplayValue = value;
-  return desplayValue;
+  resultValue == "0"
+      ? (keyNumber == 0 ? resultValue = "0" : resultValue = keyText)
+      : (resultValue.length <= 13
+          ? resultValue = resultValue + keyText
+          : resultValue = "${desplayNumber + 0}");
+  return resultValue;
 }
 
-findResult() {
+String findResult(String desplayValue) {
+  String resultValue = desplayValue;
   if (lastClickedOperator == "+") {
     oldNumber = oldNumber + newNumber;
   } else if (lastClickedOperator == "-") {
@@ -71,9 +73,12 @@ findResult() {
   } else if (lastClickedOperator == "/") {
     oldNumber = oldNumber / newNumber;
   }
+  resultValue = oldNumber.toString();
+  return resultValue;
 }
 
-findPercentage() {
+String findPercentage(String desplayValue) {
+  String resultValue = desplayValue;
   if (isOperatorClicked == true) {
     if (lastClickedOperator == "+") {
       oldNumber = ((oldNumber - newNumber) * 100) / oldNumber;
@@ -87,24 +92,29 @@ findPercentage() {
   } else {
     oldNumber = newNumber / 100;
   }
+  resultValue = oldNumber.toString();
+  return resultValue;
 }
 
-calculation(String keyText) {
-  newNumber = double.parse(desplayValue);
+String calculation(String keyText, String desplayValue) {
+  String resultValue = desplayValue;
+  newNumber = double.parse(resultValue);
   if (isResultclicked == true) {
-    findResult();
+    resultValue = findResult(desplayValue);
   } else if (isPercentageClicked == true) {
-    findPercentage();
+    resultValue = findPercentage(desplayValue);
   }
-  desplayValue = oldNumber.toString();
-  desplayValue.endsWith(".0")
-      ? desplayValue = desplayValue.replaceRange(
-          desplayValue.length - 2, desplayValue.length, "")
-      : desplayValue = oldNumber.toString();
+  resultValue = oldNumber.toString();
+  resultValue.endsWith(".0")
+      ? resultValue = resultValue.replaceRange(
+          resultValue.length - 2, resultValue.length, "")
+      : resultValue = oldNumber.toString();
+  return resultValue;
 }
 
 // operationKeyPressed method
-operationKeyPressed(String keyText) {
+String operationKeyPressed(String keyText, String desplayValue) {
+  String resultValue = desplayValue;
   if (!keyText.contains("=")) {
     if (keyText.contains("%")) {
       // % % %
@@ -112,7 +122,7 @@ operationKeyPressed(String keyText) {
         bool nowIsResultCliked = isResultclicked;
         isResultclicked = false;
         isPercentageClicked = true;
-        calculation(keyText);
+        resultValue = calculation(keyText, desplayValue);
         isResultclicked = nowIsResultCliked;
       } else {
         //
@@ -129,55 +139,59 @@ operationKeyPressed(String keyText) {
       }
       if (isOperatorClicked == true) {
         if (lastClickedOperator == "=") {
-          newNumber = double.parse(desplayValue);
+          newNumber = double.parse(resultValue);
           isResultclicked = true;
-          calculation(keyText);
-          desplayValue = "0";
+          resultValue = calculation(keyText, desplayValue);
+          resultValue = resultValue = "0";
           isOperatorClicked = true;
         } else {
           //
         }
       } else {
-        oldNumber = double.parse(desplayValue);
+        oldNumber = double.parse(resultValue);
         isOperatorClicked = true;
-        desplayValue = "0";
+        resultValue = "0";
+        resultValue = resultValue;
       }
     }
   } else {
     if (isOperatorClicked == true) {
       isResultclicked = true;
-      calculation(keyText);
+      resultValue = calculation(keyText, desplayValue);
       isOperatorClicked = false;
       lastClickedOperator = "=";
     } else {
       //
     }
   }
+  return resultValue;
 }
 
 // otherKeyPressed method
-otherKeyPressed(String keyText) {
-  double desplayNumber = double.parse(desplayValue);
+String otherKeyPressed(String keyText, String desplayValue) {
+  String resultValue = desplayValue;
+  double desplayNumber = double.parse(resultValue);
   if (keyText == "C") {
-    desplayValue = "0";
-    desplayValue = "0";
+    resultValue = "0";
+    resultValue = "0";
     oldNumber = 0;
     newNumber = 0;
     lastClickedOperator = "nill";
     isResultclicked = false;
     isPercentageClicked = false;
   } else if (keyText == "<x") {
-    desplayValue.length > 1
-        ? desplayValue = desplayValue.replaceRange(
-            desplayValue.length - 1, desplayValue.length, "")
-        : desplayValue = "0";
+    resultValue.length > 1
+        ? resultValue = resultValue.replaceRange(
+            resultValue.length - 1, resultValue.length, "")
+        : resultValue = "0";
   } else if (keyText == ".") {
     if (desplayNumber == 0) {
-      desplayValue = "0.";
+      resultValue = "0.";
     } else {
-      desplayValue.contains(".")
-          ? desplayValue = desplayValue
-          : desplayValue += ".";
+      resultValue.contains(".")
+          ? resultValue = resultValue
+          : resultValue += ".";
     }
   }
+  return resultValue;
 }
